@@ -32,8 +32,13 @@ public class CobbleXController implements Listener {
 
         List<CobbleXDrop> dropped = cobbleXManager.openCobbleX(placed.getLocation());
 
+        if (dropped.isEmpty()) {
+            messageService.send(event.getPlayer(), pluginConfig -> pluginConfig.msgNoDrop);
+            return;
+        }
+
         for (CobbleXDrop drop : dropped) {
-            messageService.send(event.getPlayer(), pluginConfig -> pluginConfig.msgDrop.replace("{dropName}", drop.getName()));
+            messageService.send(event.getPlayer(), pluginConfig -> pluginConfig.msgDrop.replace("{item}", drop.getName()));
         }
     }
 

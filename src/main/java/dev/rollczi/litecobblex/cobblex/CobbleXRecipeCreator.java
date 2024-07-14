@@ -27,6 +27,7 @@ public class CobbleXRecipeCreator implements Reloadable {
             .withMaterial(2, Material.COBBLESTONE, 64)
             .withMaterial(3, Material.COBBLESTONE, 64)
             .withMaterial(4, Material.COBBLESTONE, 64)
+            .withMaterial(5, Material.COBBLESTONE, 64)
             .withMaterial(6, Material.COBBLESTONE, 64)
             .withMaterial(7, Material.COBBLESTONE, 64)
             .withMaterial(8, Material.COBBLESTONE, 64)

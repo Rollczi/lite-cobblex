@@ -20,13 +20,6 @@ public class CobbleXCommand {
 
     @Execute
     void openCrafting(@Context Player player) {
-        InventoryView inventoryView = player.openWorkbench(null, true);
-
-        if (inventoryView == null) {
-            player.sendMessage("§cYou can't open the crafting table.");
-            return;
-        }
-
         CobbleXBuyResult result = cobbleXManager.buyCobbleX(player);
 
         if (result.isSuccess()) {

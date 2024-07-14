@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "dev.rollczi"
-version = "1.0-SNAPSHOT"
+version = "1.0.0-SNAPSHOT"
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(21))
@@ -18,6 +18,7 @@ repositories {
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://repo.eternalcode.pl/releases")
+    maven("https://storehouse.okaeri.eu/repository/maven-public/")
 }
 
 dependencies {
@@ -26,9 +27,10 @@ dependencies {
     implementation("dev.rollczi:litecommands-bukkit:${Versions.LITECOMMANDS}")
     implementation("dev.rollczi:litecommands-adventure:${Versions.LITECOMMANDS}")
 
-    implementation("de.eldoria.jacksonbukkit:paper:${Versions.JACKSON_BUKKIT}")
-    implementation("net.dzikoysk:cdn:${Versions.CDN}")
-    implementation("org.panda-lang:panda-utilities:${Versions.PANDA_UTILITIES}")
+    implementation("eu.okaeri:okaeri-configs-yaml-bukkit:${Versions.OKAERI_CONFIGS}")
+    implementation("eu.okaeri:okaeri-configs-serdes-commons:${Versions.OKAERI_CONFIGS}")
+    implementation("eu.okaeri:okaeri-configs-serdes-bukkit:${Versions.OKAERI_CONFIGS}")
+
     implementation("dev.piotrulla:craftinglib:${Versions.CRAFTINGLIB}")
 
     testImplementation(platform("org.junit:junit-bom:${Versions.JUNIT}"))
@@ -36,7 +38,6 @@ dependencies {
     testImplementation("org.assertj:assertj-core:${Versions.ASSERTJ}")
     testImplementation("org.awaitility:awaitility:${Versions.AWAITILITY}")
 }
-
 
 val pluginName = "LiteCobbleX"
 val packageName = "dev.rollczi.litecobblex"
@@ -47,6 +48,7 @@ bukkit {
     author = "Rollczi"
     name = pluginName
     version = "${project.version}"
+    website = "https://rollczi.dev/"
 }
 
 tasks.shadowJar {
@@ -55,7 +57,12 @@ tasks.shadowJar {
     listOf(
         "panda.std",
         "dev.rollczi.litecommands",
+        "net.jodah.expiringmap",
+        "eu.okaeri.configs",
+        "dev.piotrulla.craftinglib",
     ).forEach { relocate(it, "$packageName.libs.$it") }
+
+    exclude("org/intellij/lang/annotations/**", "org/jetbrains/annotations/**", "META-INF/**")
 }
 
 tasks.runServer {
