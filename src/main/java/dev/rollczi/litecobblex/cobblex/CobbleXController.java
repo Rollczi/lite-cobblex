@@ -1,7 +1,6 @@
 package dev.rollczi.litecobblex.cobblex;
 
 import dev.rollczi.litecobblex.message.MessageService;
-import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -30,16 +29,9 @@ public class CobbleXController implements Listener {
         Block placed = event.getBlockPlaced();
         placed.setType(Material.AIR);
 
-        List<CobbleXDrop> dropped = cobbleXManager.openCobbleX(placed.getLocation());
+        CobbleXDrop drop = cobbleXManager.openCobbleX(placed.getLocation());
 
-        if (dropped.isEmpty()) {
-            messageService.send(event.getPlayer(), pluginConfig -> pluginConfig.msgNoDrop);
-            return;
-        }
-
-        for (CobbleXDrop drop : dropped) {
-            messageService.send(event.getPlayer(), pluginConfig -> pluginConfig.msgDrop.replace("{item}", drop.getName()));
-        }
+        messageService.send(event.getPlayer(), pluginConfig -> pluginConfig.msgDrop.replace("{item}", drop.getName()));
     }
 
 }

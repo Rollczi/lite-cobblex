@@ -1,6 +1,7 @@
 package dev.rollczi.litecobblex.config;
 
 import dev.rollczi.litecobblex.cobblex.CobbleXDrop;
+import dev.rollczi.litecobblex.reload.Reloadable;
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.annotation.Exclude;
@@ -11,7 +12,11 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
-public class PluginConfig extends OkaeriConfig {
+public class PluginConfig extends OkaeriConfig implements Reloadable {
+
+    public PluginConfig() {
+        this.reload();
+    }
 
     @Exclude
     private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
@@ -74,5 +79,18 @@ public class PluginConfig extends OkaeriConfig {
             }, 5, "&cMega miecz")
     );
 
+    @Exclude
+    private double totalChance = 0;
+
+    public double getTotalChance() {
+        return totalChance;
+    }
+
+    @Override
+    public void reload() {
+        this.totalChance = this.cobblexDrops.stream()
+            .mapToDouble(drop -> drop.getChance())
+            .sum();
+    }
 
 }

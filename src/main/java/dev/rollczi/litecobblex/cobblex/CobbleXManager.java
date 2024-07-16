@@ -86,17 +86,23 @@ public class CobbleXManager {
         return stack.isSimilar(this.pluginConfig.cobblexItem);
     }
 
-    public List<CobbleXDrop> openCobbleX(Location location) {
+    public CobbleXDrop openCobbleX(Location location) {
         List<CobbleXDrop> drops = new ArrayList<>();
 
+        double totalChance = this.pluginConfig.getTotalChance();
+        double randomValue = RANDOM.nextDouble() * totalChance;
+
+        double cumulativeChance = 0;
         for (CobbleXDrop cobblexDrop : this.pluginConfig.cobblexDrops) {
-            if (RANDOM.nextDouble() <= cobblexDrop.getChance()) {
+            cumulativeChance += cobblexDrop.getChance();
+
+            if (randomValue <= cumulativeChance) {
                 location.getWorld().dropItemNaturally(location, cobblexDrop.getDrop().clone());
-                drops.add(cobblexDrop);
+                return cobblexDrop;
             }
         }
 
-        return drops;
+        throw new IllegalStateException("No drop found for random value: " + randomValue + " and total chance: " + totalChance);
     }
 
 }

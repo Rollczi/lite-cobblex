@@ -66,7 +66,7 @@ public class LiteCobbleX extends JavaPlugin {
         CraftingManager craftingManager = craftingLib.getCraftingManager();
 
         CobbleXRecipeCreator creator = reloadManager.register(new CobbleXRecipeCreator(craftingManager, pluginConfig));
-        creator.load();
+        creator.init();
     }
 
     @Override

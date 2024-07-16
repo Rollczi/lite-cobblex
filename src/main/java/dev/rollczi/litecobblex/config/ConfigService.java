@@ -47,6 +47,10 @@ public class ConfigService implements Reloadable {
     public void save() {
         for (OkaeriConfig config : this.configs) {
             config.save();
+
+            if (config instanceof Reloadable reloadable) {
+                reloadable.reload();
+            }
         }
     }
 

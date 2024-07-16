@@ -20,7 +20,7 @@ public class CobbleXRecipeCreator implements Reloadable {
     }
 
     @Override
-    public void load() {
+    public void init() {
         Crafting pickaxeCrafting = Crafting.builder()
             .withName(COBBLEX_KEY)
             .withMaterial(1, Material.COBBLESTONE, 64)
@@ -45,7 +45,7 @@ public class CobbleXRecipeCreator implements Reloadable {
         }
         catch (CraftingException ignored) {}
 
-        this.load();
+        this.init();
     }
 
 }
