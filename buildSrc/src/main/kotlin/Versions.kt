@@ -7,5 +7,5 @@ object Versions {
     // Testing
     const val JUNIT = "5.10.0"
     const val ASSERTJ = "3.24.2"
-    const val AWAITILITY = "4.2.0"
+    const val AWAITILITY = "4.3.0"
 }
